@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ôn Thi Tiếng Việt Lớp 3 — Yến Nhi</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -83,6 +83,31 @@
             background: radial-gradient(ellipse at 20% 10%, rgba(99, 102, 241, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 90%, rgba(244, 114, 182, .07) 0%, transparent 60%);
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* BACK BUTTON */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            border: 1.5px solid var(--border2);
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            border-color: var(--blue);
+            color: #fff;
         }
 
         /* ─── HOME SCREEN ─── */
@@ -954,6 +979,7 @@
 
     <!-- HOME -->
     <div id="homeScreen">
+        <a href="index.html" class="back-btn">⬅ Quay về</a>
         <div class="home-card">
             <span class="home-emoji">📚</span>
             <div class="home-title">Ôn Thi Tiếng Việt 3</div>
