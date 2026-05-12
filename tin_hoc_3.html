@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giải Cứu Robot Bi! — Tin Học Lớp 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Arial, sans-serif
+        }
+
+        #scene {
+            width: 100vw;
+            height: 100vh;
+            background: #5ecbf0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SKY & GROUND */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40vh;
+            background: #5db832
+        }
+
+        .ground-mid {
+            position: absolute;
+            bottom: 38vh;
+            left: 0;
+            right: 0;
+            height: 6vh;
+            background: #70d040;
+            border-radius: 50% 50% 0 0/4vh 4vh 0 0
+        }
+
+        /* SUN */
+        .sun {
+            position: absolute;
+            top: 3vh;
+            right: 6vw;
+            width: 7vw;
+            height: 7vw;
+            min-width: 50px;
+            min-height: 50px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2vw rgba(255, 215, 0, 0.18)
+        }
+
+        /* CLOUDS */
+        .cloud {
+            position: absolute;
+            pointer-events: none
+        }
+
+        .cloud span {
+            display: block;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            opacity: .96
+        }
+
+        .c1 {
+            top: 8vh;
+            left: 5vw
+        }
+
+        .c2 {
+            top: 15vh;
+            left: 35vw;
+            animation: cmove 32s linear infinite
+        }
+
+        .c3 {
+            top: 6vh;
+            left: 62vw
+        }
+
+        .c4 {
+            top: 20vh;
+            left: 18vw;
+            animation: cmove 45s linear infinite;
+            animation-delay: -20s
+        }
+
+        @keyframes cmove {
+            from {
+                transform: translateX(-20vw)
+            }
+
+            to {
+                transform: translateX(110vw)
+            }
+        }
+
+        /* TREES */
+        .tree {
+            position: absolute;
+            bottom: 39vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .trunk {
+            background: #8B4513;
+            border-radius: 3px;
+            margin: 0 auto
+        }
+
+        .tp {
+            width: 0;
+            height: 0;
+            margin-bottom: -2px
+        }
+
+        /* FLOWERS */
+        .flower {
+            position: absolute;
+            bottom: 39vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .fstem {
+            background: #3aaa27;
+            border-radius: 2px;
+            margin: 0 auto
+        }
+
+        /* BIRDS */
+        .bird {
+            position: absolute;
+            pointer-events: none;
+            animation: bf 16s linear infinite
+        }
+
+        .bird2 {
+            position: absolute;
+            pointer-events: none;
+            animation: bf 24s linear infinite;
+            animation-delay: -10s
+        }
+
+        @keyframes bf {
+            0% {
+                left: -80px;
+                top: 12vh
+            }
+
+            100% {
+                left: 110vw;
+                top: 8vh
+            }
+        }
+
+        /* ROBOT WALK animation for background */
+        .robot-walk {
+            position: absolute;
+            bottom: 41vh;
+            font-size: 4vh;
+            animation: robotwalk 20s linear infinite
+        }
+
+        @keyframes robotwalk {
+            0% {
+                left: -5vw
+            }
+
+            100% {
+                left: 105vw
+            }
+        }
+
+        /* PANEL */
+        .panel {
+            position: relative;
+            z-index: 20;
+            width: min(640px, 92vw);
+            max-height: 90vh;
+            overflow-y: auto
+        }
+
+        .panel::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .panel::-webkit-scrollbar-track {
+            background: transparent
+        }
+
+        .panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 4px
+        }
+
+        /* CARD */
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: clamp(18px, 3vh, 32px) clamp(16px, 3vw, 28px);
+            border: 3px solid #ffd166;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+        }
+
+        /* INTRO */
+        .ititle {
+            text-align: center;
+            font-size: clamp(22px, 3.5vw, 32px);
+            font-weight: 900;
+            color: #e07b00;
+            margin-bottom: 4px
+        }
+
+        .isub {
+            text-align: center;
+            font-size: clamp(11px, 1.4vw, 13px);
+            color: #aaa;
+            margin-bottom: 14px
+        }
+
+        .irobot {
+            text-align: center;
+            font-size: clamp(44px, 7vw, 72px);
+            margin: 8px 0 14px
+        }
+
+        .istory {
+            background: #fff8e8;
+            border-radius: 14px;
+            border: 2px solid #ffd166;
+            padding: 14px 16px;
+            font-size: clamp(13px, 1.6vw, 15px);
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 16px
+        }
+
+        .istory strong {
+            color: #e07b00
+        }
+
+        .ifeats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px
+        }
+
+        .feat {
+            background: #f0fce8;
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
+            border: 2px solid #a8e063
+        }
+
+        .feat .ic {
+            font-size: clamp(20px, 3vw, 28px);
+            display: block;
+            margin-bottom: 4px
+        }
+
+        .feat .lb {
+            font-size: clamp(11px, 1.3vw, 13px);
+            color: #3b6d11;
+            font-weight: 700
+        }
+
+        .sbtn {
+            width: 100%;
+            background: #ffb800;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: clamp(12px, 2vh, 17px);
+            font-size: clamp(16px, 2.2vw, 20px);
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform .15s, background .15s;
+            letter-spacing: .3px
+        }
+
+        .sbtn:hover {
+            background: #e0a200;
+            transform: scale(1.02)
+        }
+
+        /* HUD */
+        .hud {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #fff8e8;
+            border-radius: 13px;
+            padding: 9px 14px;
+            border: 2px solid #ffd166
+        }
+
+        .hi {
+            text-align: center;
+            min-width: 46px
+        }
+
+        .hl {
+            font-size: 10px;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .hv {
+            font-size: clamp(16px, 2.2vw, 20px);
+            font-weight: 900;
+            color: #e07b00
+        }
+
+        .hv.bl {
+            color: #3b82f6
+        }
+
+        .hv.gr {
+            color: #22c55e
+        }
+
+        .pb {
+            flex: 1;
+            background: #e0f5c8;
+            border-radius: 8px;
+            height: 11px;
+            overflow: hidden
+        }
+
+        .pbf {
+            height: 100%;
+            background: #22c55e;
+            border-radius: 8px;
+            transition: width .5s
+        }
+
+        /* STORY STRIP */
+        .ss {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #f0fce8;
+            border-radius: 12px;
+            padding: 9px 13px;
+            margin-bottom: 12px;
+            border: 1.5px solid #a8e063;
+            font-size: clamp(12px, 1.5vw, 14px);
+            color: #2d6a20;
+            line-height: 1.5
+        }
+
+        .ri {
+            font-size: clamp(22px, 3vw, 28px);
+            flex-shrink: 0
+        }
+
+        /* QUESTION */
+        .ql {
+            font-size: 10px;
+            color: #bbb;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 6px
+        }
+
+        .qt {
+            font-size: clamp(14px, 1.9vw, 17px);
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.5;
+            margin-bottom: 14px
+        }
+
+        .opts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px
+        }
+
+        .opt {
+            background: #f0fce8;
+            border: 2.5px solid #a8e063;
+            border-radius: 13px;
+            padding: 10px 12px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 700;
+            color: #2d6a20;
+            cursor: pointer;
+            transition: all .18s;
+            text-align: left;
+            line-height: 1.4;
+            width: 100%
+        }
+
+        .opt:hover:not(:disabled) {
+            background: #d4f5b0;
+            border-color: #56cc20;
+            transform: scale(1.02)
+        }
+
+        .opt.correct {
+            background: #d1fae5;
+            border-color: #22c55e;
+            color: #065f46
+        }
+
+        .opt.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #7f1d1d
+        }
+
+        .ol {
+            font-weight: 900;
+            color: #22c55e;
+            margin-right: 5px
+        }
+
+        /* FEEDBACK */
+        .fb {
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: clamp(12px, 1.5vw, 14px);
+            font-weight: 700;
+            line-height: 1.5;
+            margin-top: 11px
+        }
+
+        .fb.ok {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #22c55e
+        }
+
+        .fb.no {
+            background: #fee2e2;
+            color: #7f1d1d;
+            border: 2px solid #ef4444
+        }
+
+        /* NEXT BTN */
+        .nbtn {
+            width: 100%;
+            margin-top: 11px;
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            border-radius: 13px;
+            padding: clamp(10px, 1.5vh, 14px);
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .nbtn:hover {
+            background: #16a34a;
+            transform: scale(1.01)
+        }
+
+        /* END */
+        .etitle {
+            text-align: center;
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 900;
+            color: #e07b00;
+            margin-bottom: 4px
+        }
+
+        .estars {
+            text-align: center;
+            font-size: clamp(36px, 6vw, 56px);
+            margin: 8px 0 4px
+        }
+
+        .escore {
+            text-align: center;
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 900;
+            color: #22c55e;
+            margin-bottom: 8px
+        }
+
+        .emsg {
+            text-align: center;
+            font-size: clamp(13px, 1.6vw, 15px);
+            color: #555;
+            margin-bottom: 18px;
+            line-height: 1.6
+        }
+
+        .rbtn {
+            width: 100%;
+            background: #ffb800;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(15px, 2vw, 18px);
+            font-weight: 900;
+            cursor: pointer;
+            transition: transform .15s
+        }
+
+        .rbtn:hover {
+            background: #e0a200;
+            transform: scale(1.02)
+        }
+
+        .author {
+            text-align: center;
+            font-size: clamp(10px, 1.2vw, 12px);
+            color: #ccc;
+            margin-top: 13px;
+            letter-spacing: .3px
+        }
+
+        /* STAR BURST */
+        .burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 28px;
+            animation: burst .9s ease-out forwards
+        }
+
+        @keyframes burst {
+            0% {
+                opacity: 1;
+                transform: scale(.5) translateY(0)
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.6) translateY(-90px)
+            }
+        }
+
+        /* BACK BUTTON */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            color: #2d6a20;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: clamp(12px, 1.5vw, 14px);
+            border: 2px solid #a8e063;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform .15s, background .15s;
+        }
+
+        .back-btn:hover {
+            background: #d4f5b0;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nút quay về portal -->
+    <a href="index.html" class="back-btn">⬅ Quay về</a>
+
+    <div id="scene">
+
+        <!-- Background elements -->
+        <div class="sun"></div>
+        <div class="ground-mid"></div>
+        <div class="ground"></div>
+
+        <!-- Clouds -->
+        <div class="cloud c1" id="cl1"></div>
+        <div class="cloud c2" id="cl2"></div>
+        <div class="cloud c3" id="cl3"></div>
+        <div class="cloud c4" id="cl4"></div>
+
+        <!-- Trees -->
+        <div id="trees"></div>
+        <!-- Flowers -->
+        <div id="flowers"></div>
+        <!-- Birds -->
+        <div class="bird" id="bird1"></div>
+        <div class="bird2" id="bird2"></div>
+        <!-- Robot walking in bg -->
+        <div class="robot-walk" id="bgRobot">🤖</div>
+
+        <!-- GAME PANEL -->
+        <div class="panel" id="panel"></div>
+    </div>
+
+    <script>
+        /* ========== DATA ========== */
+        const qs = [
+            {
+                q: "Câu nào sau đây là SAI khi nói về thư mục?",
+                opts: ["Một ổ đĩa có thể chứa nhiều thư mục.", "Một thư mục có thể chứa nhiều tệp và thư mục con.", "Thư mục có thể chứa nhiều thư mục con cùng tên.", "Có thể có hai tệp cùng tên ở hai thư mục khác nhau."],
+                ans: 2, ok: "Đúng! Trong một thư mục KHÔNG thể có hai thư mục con cùng tên nhé!",
+                no: "Sai! Đáp án C sai: trong một thư mục KHÔNG thể có hai thư mục con cùng tên.",
+                story: "Robot Bi bước được bước đầu tiên! Tiến lên nào! 🐾"
+            },
+            {
+                q: "Nháy đúp chuột vào thư mục, trong dải lệnh Home chọn Delete là thao tác gì?",
+                opts: ["Mở thư mục.", "Xóa thư mục.", "Đổi tên thư mục.", "Tạo thư mục."],
+                ans: 1, ok: "Chính xác! Chọn thư mục rồi nhấn Delete = xóa thư mục!",
+                no: "Chưa đúng! Đó là thao tác XÓA thư mục nhé Yến Nhi!",
+                story: "Robot Bi nhảy qua bụi cỏ xanh! 🌿"
+            },
+            {
+                q: "Khi có thông tin cá nhân của em, người xấu có thể làm gì?",
+                opts: ["Tìm đến em để thực hiện ý đồ xấu.", "Đăng tin nói xấu em hay gia đình trên Internet.", "Mạo danh em hoặc gia đình để làm việc xấu.", "Tất cả các ý trên đều đúng."],
+                ans: 3, ok: "Đúng! Người xấu có thể làm TẤT CẢ những điều đó! Giữ kín thông tin nhé!",
+                no: "Sai rồi! Người xấu có thể làm cả ba việc đó, không chỉ một!",
+                story: "Robot Bi vượt qua con suối nhỏ! 💧"
+            },
+            {
+                q: "Để thêm một trang trình chiếu mới trong PowerPoint, em dùng nút lệnh nào?",
+                opts: ["Paste (dán)", "New Slide (trang chiếu mới)", "Screenshot (chụp màn hình)", "Object (đối tượng)"],
+                ans: 1, ok: "Tuyệt! Nút New Slide để thêm trang chiếu mới!",
+                no: "Chưa đúng! Để thêm trang mới dùng nút New Slide nhé!",
+                story: "Robot Bi leo qua ngọn đồi xanh! 🌄"
+            },
+            {
+                q: "Thứ tự vẽ con cừu trong hình (3=thân tròn → 2=thêm đầu → 1=chi tiết đầu → 4=chân → 5=hoàn chỉnh):",
+                opts: ["5 → 1 → 4 → 2 → 3", "3 → 2 → 1 → 5 → 4", "3 → 2 → 1 → 4 → 5", "3 → 1 → 5 → 2 → 4"],
+                ans: 2, ok: "Xuất sắc! Thứ tự đúng: 3→2→1→4→5 — vẽ từ đơn giản đến chi tiết!",
+                no: "Chưa đúng! Thứ tự đúng là 3→2→1→4→5 nhé!",
+                story: "Robot Bi thấy đường mòn quen thuộc! 🛤️"
+            },
+            {
+                q: "Để LƯU bài trình chiếu PowerPoint, em chọn:",
+                opts: ["File → Exit", "File → Save", "File → Close", "File → Print"],
+                ans: 1, ok: "Giỏi lắm! File → Save (hoặc Ctrl+S) để lưu bài trình chiếu!",
+                no: "Chưa đúng! Muốn lưu file dùng File → Save nhé!",
+                story: "Robot Bi tìm được bản đồ về nhà! 🗺️"
+            },
+            {
+                q: "Để bảo vệ thông tin của em và gia đình, em cần làm gì?",
+                opts: ["Cung cấp thông tin cá nhân, mật khẩu cho người lạ.", "Gửi và nhận tệp từ người lạ thoải mái.", "Không cung cấp thông tin cá nhân, mật khẩu cho người không quen; không gửi nhận tệp từ người lạ.", "Đăng mọi thông tin lên mạng xã hội."],
+                ans: 2, ok: "Đúng rồi! Không chia sẻ thông tin và mật khẩu với người lạ!",
+                no: "Chưa đúng! Đáp án C đầy đủ nhất nhé!",
+                story: "Robot Bi đi qua khu rừng bí ẩn an toàn! 🌲"
+            },
+            {
+                q: "Trong sơ đồ cây thư mục, thư mục con của thư mục Truyen tranh là:",
+                opts: ["Chỉ Do-re-mon", "Chỉ Co-nan", "Chỉ Trang Quynh", "Cả Do-re-mon, Co-nan và Trang Quynh"],
+                ans: 3, ok: "Chính xác! Cả ba: Do-re-mon, Co-nan, Trang Quynh đều là thư mục con!",
+                no: "Chưa đúng! Cả ba: Do-re-mon, Co-nan và Trang Quynh đều là thư mục con nhé!",
+                story: "Robot Bi bước qua cánh đồng hoa! 🌸"
+            },
+            {
+                q: "Nháy đúp vào biểu tượng nào để khởi động phần mềm trình chiếu PowerPoint?",
+                opts: ["Biểu tượng chữ P màu đỏ cam (PowerPoint)", "Biểu tượng chữ W màu xanh (Word)", "Biểu tượng chữ X màu xanh lá (Excel)", "Biểu tượng màu vàng cam (phần mềm khác)"],
+                ans: 0, ok: "Tuyệt! Biểu tượng chữ P màu đỏ cam chính là PowerPoint!",
+                no: "Chưa đúng! Biểu tượng PowerPoint là chữ P màu đỏ cam nhé!",
+                story: "Robot Bi nhìn thấy ánh đèn nhà từ xa! 🏠"
+            },
+            {
+                q: "Thao tác nháy đúp chuột dùng trong tình huống nào?",
+                opts: ["Khởi động phần mềm trên màn hình nền.", "Chọn lệnh New Folder trên dải lệnh Home.", "Mở một thư mục trên máy tính.", "Cả A và C: khởi động phần mềm và mở thư mục."],
+                ans: 3, ok: "Chính xác! Nháy đúp dùng để khởi động phần mềm VÀ mở thư mục!",
+                no: "Chưa đủ! Nháy đúp dùng cho cả hai: khởi động phần mềm và mở thư mục!",
+                story: "Robot Bi chạy thật nhanh về phía nhà! 🏃"
+            },
+            {
+                q: "Khẳng định nào SAI khi nói về việc sắp xếp công việc?",
+                opts: ["Một việc có thể chia thành những việc nhỏ hơn.", "Chia nhỏ việc giúp chúng ta dễ hiểu và dễ thực hiện.", "Không nên chia nhỏ việc vì sẽ khó thực hiện hơn.", "Nhiều công việc thực hiện theo từng bước theo thứ tự nhất định."],
+                ans: 2, ok: "Đúng rồi! Chia nhỏ công việc giúp ta DỄ làm hơn, không khó hơn!",
+                no: "Sai! Đáp án C sai vì chia nhỏ công việc thực ra giúp dễ làm hơn!",
+                story: "Robot Bi bước vào con đường làng quen thuộc! 🌾"
+            },
+            {
+                q: "\"Nếu em chăm chỉ học hành thì…\" Điền vào vế sau cho hợp lí:",
+                opts: ["em sẽ đạt học sinh giỏi.", "em sẽ là học sinh trung bình.", "em sẽ được cô giáo khen.", "Cả A và C: đạt học sinh giỏi và được cô khen."],
+                ans: 3, ok: "Tuyệt vời! Chăm chỉ học hành thì vừa đạt học sinh giỏi vừa được cô khen!",
+                no: "Chưa đủ! Đáp án D đúng nhất: cả A và C đều đúng nhé!",
+                story: "Robot Bi thấy cổng nhà rồi! Gần lắm! 🚪"
+            },
+            {
+                q: "Công việc nào của tổ bạn Nam cần sự trợ giúp của máy tính?",
+                opts: ["Chọn con vật để giới thiệu.", "Tạo bài trình chiếu giới thiệu về một con vật yêu thích.", "Phân công công việc cho các bạn trong tổ.", "Lên kế hoạch thực hiện công việc."],
+                ans: 1, ok: "Đúng! Tạo bài trình chiếu cần dùng máy tính với PowerPoint!",
+                no: "Chưa đúng! Công việc cần máy tính là tạo bài trình chiếu nhé!",
+                story: "Robot Bi cười toe toét, sắp về đến nơi rồi! 😄"
+            },
+            {
+                q: "Thao tác nào là một bước trong quy trình TẠO THƯ MỤC mới?",
+                opts: ["Nháy chọn Delete.", "Nháy chọn New rồi chọn Folder.", "Nháy chọn Rename.", "Nháy chọn Open."],
+                ans: 1, ok: "Chính xác! Tạo thư mục: nháy phải → New → Folder!",
+                no: "Chưa đúng! Để tạo thư mục mới cần chọn New rồi chọn Folder nhé!",
+                story: "Robot Bi mở cửa bước vào sân nhà! 🌻"
+            },
+            {
+                q: "Em muốn gửi ảnh trong máy tính cho bạn. Có thể dùng cách nào?",
+                opts: ["Nhờ người lớn gửi tệp qua thư điện tử.", "Nhờ người lớn sao chép vào USB rồi gửi cho bạn.", "Nhờ người lớn gửi qua ứng dụng chat như Zalo, Messenger.", "Cả A, B và C đều được."],
+                ans: 3, ok: "Tuyệt! Cả ba cách đều có thể dùng để gửi ảnh cho bạn!",
+                no: "Chưa đủ! Tất cả ba cách đều có thể dùng được nhé!",
+                story: "Robot Bi ôm chặt ngôi nhà yêu thương! 🏡"
+            },
+            {
+                q: "Thứ tự đúng các bước vẽ ngôi nhà (a=vẽ cánh cửa, b=vẽ hai cửa sổ, c=vẽ khung+mái, d=vẽ khung cửa):",
+                opts: ["a → b → c → d", "b → c → d → a", "c → d → a → b", "d → a → b → c"],
+                ans: 2, ok: "Chính xác! c→d→a→b: vẽ khung+mái → khung cửa → cánh cửa → cửa sổ!",
+                no: "Chưa đúng! Thứ tự đúng là c→d→a→b nhé Yến Nhi!",
+                story: "Cả nhà Robot Bi vui mừng đón chào! 🎊"
+            },
+            {
+                q: "Máy tính của Thuỷ có RapidTyping, mẹ nhắc luyện tập. Việc cần làm của Thuỷ là gì?",
+                opts: ["Luyện tập gõ bàn phím.", "Siêng năng (chung chung).", "Tải phần mềm RapidTyping.", "Sử dụng máy tính để giải trí."],
+                ans: 0, ok: "Đúng! Thuỷ cần LUYỆN TẬP GÕ BÀN PHÍM bằng RapidTyping!",
+                no: "Chưa đúng! Việc cụ thể cần làm là luyện tập gõ bàn phím nhé!",
+                story: "Robot Bi khoe với mẹ về hành trình phiêu lưu! ✨"
+            },
+            {
+                q: "Khi chèn xong hình ảnh vào trang chiếu PowerPoint thì:",
+                opts: ["Sẽ không thay đổi được kích thước của hình.", "Hình cố định tại một vị trí, không di chuyển được.", "Có thể thay đổi vị trí và kích thước của hình.", "Sẽ không thể xóa hình đã chèn."],
+                ans: 2, ok: "Đúng! Sau khi chèn, hình ảnh vẫn có thể thay đổi vị trí và kích thước!",
+                no: "Chưa đúng! Sau khi chèn hình vẫn có thể di chuyển và thay đổi kích thước nhé!",
+                story: "Robot Bi kể chuyện cho mẹ nghe say sưa! 📖"
+            },
+            {
+                q: "Phải bảo vệ thông tin cá nhân khi giao tiếp trên Internet vì:",
+                opts: ["Người xấu lợi dụng để giả mạo.", "Người xấu lợi dụng để lừa đảo.", "Người xấu lợi dụng để bắt cóc tống tiền.", "Cả A, B và C đều đúng."],
+                ans: 3, ok: "Xuất sắc! Tất cả đều là lý do phải bảo vệ thông tin cá nhân!",
+                no: "Chưa đủ! Tất cả ba lý do đó đều đúng nhé!",
+                story: "Robot Bi ngủ ngon trong ngôi nhà ấm áp! 💤"
+            },
+            {
+                q: "Nháy phải chuột lên thư mục → chọn Open, hoặc nháy đúp chuột trái là thao tác gì?",
+                opts: ["Mở thư mục.", "Xóa thư mục.", "Đổi tên thư mục.", "Tạo thư mục."],
+                ans: 0, ok: "Chính xác! Nháy đúp hoặc nháy phải → Open đều là thao tác MỞ thư mục!",
+                no: "Sai rồi! Đó là thao tác MỞ thư mục nhé Yến Nhi!",
+                story: "Yến Nhi hoàn thành xuất sắc! Robot Bi biết ơn bạn rất nhiều! 🤖💛"
+            }
+        ];
+
+        /* ========== SCENE SETUP ========== */
+        function mkCloud(el, w, h) {
+            el.innerHTML = '';
+            const cfg = [
+                { w: w * .62, h: h * .58, t: h * .22, l: 0 },
+                { w: w * .42, h: h * .75, t: 0, l: w * .13 },
+                { w: w * .52, h: h * .56, t: h * .24, l: w * .33 },
+                { w: w * .38, h: h * .6, t: h * .1, l: w * .6 }
+            ];
+            cfg.forEach(c => {
+                const s = document.createElement('span');
+                s.style.cssText = `width:${c.w}px;height:${c.h}px;top:${c.t}px;left:${c.l}px`;
+                el.appendChild(s);
+            });
+            el.style.width = w + 'px'; el.style.height = h + 'px';
+        }
+        mkCloud(document.getElementById('cl1'), 80, 42);
+        mkCloud(document.getElementById('cl2'), 66, 34);
+        mkCloud(document.getElementById('cl3'), 76, 40);
+        mkCloud(document.getElementById('cl4'), 58, 30);
+
+        function mkTree(left, bottom, scale) {
+            const t = document.createElement('div');
+            t.className = 'tree';
+            t.style.cssText = `left:${left};bottom:${bottom}`;
+            const s = scale || 1;
+            const colors = [['#3aaa27', '#2d8a1f', '#2d8a1f'], ['#2d8a1f', '#3aaa27', '#2d8a1f'], ['#1f6e14', '#27901c', '#2d8a1f']];
+            const c = colors[Math.floor(Math.random() * colors.length)];
+            const bw = [54, 44, 36].map(x => Math.round(x * s));
+            const bh = [50, 38, 28].map(x => Math.round(x * s));
+            const th = Math.round(38 * s), tw = Math.round(13 * s);
+            t.innerHTML = `
+    <div class="tp" style="border-left:${bw[2]}px solid transparent;border-right:${bw[2]}px solid transparent;border-bottom:${bh[2]}px solid ${c[0]};margin-bottom:-2px"></div>
+    <div class="tp" style="border-left:${bw[1]}px solid transparent;border-right:${bw[1]}px solid transparent;border-bottom:${bh[1]}px solid ${c[1]};margin-bottom:-2px"></div>
+    <div class="tp" style="border-left:${bw[0]}px solid transparent;border-right:${bw[0]}px solid transparent;border-bottom:${bh[0]}px solid ${c[2]};margin-bottom:-2px"></div>
+    <div class="trunk" style="width:${tw}px;height:${th}px"></div>`;
+            document.getElementById('trees').appendChild(t);
+        }
+        mkTree('1.5vw', '39vh', 1.1); mkTree('8vw', '39vh', 0.85);
+        mkTree('15vw', '39vh', 0.7); mkTree('79vw', '39vh', 1.0);
+        mkTree('87vw', '39vh', 0.9); mkTree('94vw', '39vh', 0.75);
+
+        function mkFlower(left, emoji) {
+            const f = document.createElement('div');
+            f.className = 'flower';
+            f.style.left = left;
+            f.innerHTML = `<div class="fhead" style="font-size:18px">${emoji}</div><div class="fstem" style="width:4px;height:20px"></div>`;
+            document.getElementById('flowers').appendChild(f);
+        }
+        mkFlower('22vw', '🌸'); mkFlower('28vw', '🌼');
+        mkFlower('35vw', '🌺'); mkFlower('55vw', '🌻');
+        mkFlower('62vw', '🌸'); mkFlower('70vw', '🌼');
+
+        document.getElementById('bird1').innerHTML = '<svg width="38" height="20" viewBox="0 0 38 20"><path d="M2,10 Q10,2 19,7 Q28,2 36,10" fill="none" stroke="#444" stroke-width="2.2" stroke-linecap="round"/></svg>';
+        document.getElementById('bird2').innerHTML = '<svg width="28" height="16" viewBox="0 0 28 16"><path d="M2,8 Q7,1 14,6 Q21,1 26,8" fill="none" stroke="#666" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+        /* ========== GAME LOGIC ========== */
+        let cur = 0, score = 0, answered = false;
+
+        function renderIntro() {
+            document.getElementById('bgRobot').style.display = 'block';
+            document.getElementById('panel').innerHTML = `
+<div class="card">
+  <div class="ititle">Giải Cứu Robot Bi!</div>
+  <div class="isub">Trò chơi Tin học lớp 3 — Năm học 2025–2026</div>
+  <div class="irobot">🤖</div>
+  <div class="istory">
+    <strong>Yến Nhi</strong> ơi! Bạn <strong>Robot Bi</strong> bị lạc trong khu vườn kỳ diệu rồi!
+    Hãy trả lời đúng <strong>20 câu hỏi Tin học</strong> để dẫn Robot Bi từng bước về nhà.
+    Mỗi câu đúng, Robot Bi tiến thêm một bước. Cùng xuất phát nào! 🌳🌸🏡
+  </div>
+  <div class="ifeats">
+    <div class="feat"><span class="ic">📚</span><span class="lb">20 câu hỏi</span></div>
+    <div class="feat"><span class="ic">⭐</span><span class="lb">Ghi điểm</span></div>
+    <div class="feat"><span class="ic">🏆</span><span class="lb">Xếp hạng sao</span></div>
+  </div>
+  <button class="sbtn" onclick="startGame()">🚀 Bắt đầu ngay!</button>
+  <div class="author">Được tạo bởi <strong style="color:#e07b00">Chú Ba</strong> — dành tặng bé Yến Nhi 💛</div>
+</div>`;
+        }
+
+        function startGame() {
+            cur = 0; score = 0; answered = false;
+            document.getElementById('bgRobot').style.display = 'none';
+            renderQ();
+        }
+
+        function renderQ() {
+            if (cur >= qs.length) { renderEnd(); return; }
+            const q = qs[cur]; answered = false;
+            const pct = Math.round(cur / qs.length * 100);
+            document.getElementById('panel').innerHTML = `
+<div class="card">
+  <div class="hud">
+    <div class="hi"><div class="hl">Câu</div><div class="hv bl">${cur + 1}/${qs.length}</div></div>
+    <div class="pb"><div class="pbf" id="pbf" style="width:${pct}%"></div></div>
+    <div class="hi"><div class="hl">Điểm</div><div class="hv gr" id="sc">${score}</div></div>
+  </div>
+  <div class="ss"><div class="ri">🤖</div><div id="stxt">Robot Bi đang chờ Yến Nhi trả lời để tiến về nhà!</div></div>
+  <div class="ql">Câu hỏi ${cur + 1} / ${qs.length}</div>
+  <div class="qt">${q.q}</div>
+  <div class="opts">${q.opts.map((o, i) => `<button class="opt" id="o${i}" onclick="pick(${i})"><span class="ol">${['A', 'B', 'C', 'D'][i]}.</span>${o}</button>`).join('')}</div>
+  <div id="fb"></div>
+  <button class="nbtn" id="nb" style="display:none" onclick="nextQ()">${cur < qs.length - 1 ? 'Câu tiếp theo →' : 'Xem kết quả 🎊'}</button>
+  <div class="author" style="margin-top:9px">Chú Ba tặng Yến Nhi 💛</div>
+</div>`;
+        }
+
+        function pick(i) {
+            if (answered) return; answered = true;
+            const q = qs[cur];
+            document.querySelectorAll('.opt').forEach(b => b.disabled = true);
+            const fb = document.getElementById('fb'), nb = document.getElementById('nb');
+            if (i === q.ans) {
+                document.getElementById('o' + i).classList.add('correct');
+                score++;
+                document.getElementById('sc').textContent = score;
+                fb.className = 'fb ok'; fb.textContent = '✅ ' + q.ok;
+                document.getElementById('stxt').textContent = '🎉 ' + q.story;
+                burst(event);
+            } else {
+                document.getElementById('o' + i).classList.add('wrong');
+                document.getElementById('o' + q.ans).classList.add('correct');
+                fb.className = 'fb no'; fb.textContent = '💡 ' + q.no;
+            }
+            nb.style.display = 'block';
+        }
+
+        function burst(e) {
+            ['⭐', '✨', '🌟'].forEach((em, i) => {
+                const d = document.createElement('div');
+                d.className = 'burst';
+                d.style.left = (e.clientX + (i - 1) * 36) + 'px';
+                d.style.top = (e.clientY - 20) + 'px';
+                d.style.animationDelay = (i * .1) + 's';
+                d.textContent = em;
+                document.body.appendChild(d);
+                setTimeout(() => d.remove(), 1000);
+            });
+        }
+
+        function nextQ() { cur++; renderQ(); }
+
+        function renderEnd() {
+            document.getElementById('bgRobot').style.display = 'block';
+            const pct = Math.round(score / qs.length * 100);
+            let stars, msg, emoji;
+            if (score === 20) { stars = '⭐⭐⭐'; msg = 'HOÀN HẢO! Yến Nhi thiên tài Tin học! Robot Bi đã về nhà an toàn và hạnh phúc vô cùng! 🤖🏡💖'; emoji = '🏆🎊🌟'; }
+            else if (score >= 17) { stars = '⭐⭐⭐'; msg = 'Xuất sắc! Yến Nhi giỏi lắm! Robot Bi về đến nhà rồi! Chú Ba tự hào về Yến Nhi!'; emoji = '🎉🌸✨'; }
+            else if (score >= 14) { stars = '⭐⭐'; msg = 'Giỏi! Robot Bi đã về gần đến nhà. Ôn thêm một chút để đạt điểm cao hơn nhé!'; emoji = '🌈😊🌟'; }
+            else if (score >= 10) { stars = '⭐'; msg = 'Cố lên! Robot Bi đang trên đường về. Ôn bài kỹ hơn rồi chơi lại nhé Yến Nhi!'; emoji = '🌱💪'; }
+            else { stars = ''; msg = 'Robot Bi vẫn đang chờ! Ôn bài Tin học thật kỹ rồi chơi lại để cứu bạn ấy nhé!'; emoji = '📚🤖'; }
+            document.getElementById('panel').innerHTML = `
+<div class="card">
+  <div class="etitle">Kết Quả Hành Trình!</div>
+  <div class="estars">${emoji}</div>
+  <div class="escore">${score} / ${qs.length} câu đúng — ${pct}%</div>
+  <div style="text-align:center;font-size:clamp(22px,4vw,32px);margin:4px 0 12px">${stars || '—'}</div>
+  <div class="emsg">${msg}</div>
+  <button class="rbtn" onclick="renderIntro()">🔄 Chơi lại từ đầu</button>
+  <div class="author" style="margin-top:14px">Được tạo bởi <strong style="color:#e07b00">Chú Ba</strong> — dành tặng bé Yến Nhi 💛</div>
+</div>`;
+        }
+
+        renderIntro();
+    </script>
+</body>
+
+</html>
