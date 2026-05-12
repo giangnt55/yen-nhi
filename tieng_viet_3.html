@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Thi Tiếng Việt Lớp 3 — Yến Nhi</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg2: #1e293b;
+            --bg3: #273549;
+            --border: rgba(148, 163, 184, 0.15);
+            --border2: rgba(148, 163, 184, 0.25);
+            --text: #e2e8f0;
+            --text2: #94a3b8;
+            --text3: #64748b;
+            --gold: #fbbf24;
+            --gold2: #f59e0b;
+            --green: #34d399;
+            --green2: #059669;
+            --red: #f87171;
+            --red2: #dc2626;
+            --blue: #60a5fa;
+            --purple: #a78bfa;
+            --pink: #f472b6;
+            --r: 14px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ─── STARS ─── */
+        #stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: .05
+            }
+
+            50% {
+                opacity: .45;
+                transform: scale(1.6)
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 10%, rgba(99, 102, 241, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 90%, rgba(244, 114, 182, .07) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ─── HOME SCREEN ─── */
+        #homeScreen {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .home-card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1.5px solid var(--border2);
+            border-radius: 28px;
+            padding: clamp(28px, 5vh, 48px) clamp(24px, 5vw, 56px);
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, .5);
+        }
+
+        .home-emoji {
+            font-size: clamp(60px, 10vw, 80px);
+            display: block;
+            margin-bottom: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        .home-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(26px, 4.5vw, 38px);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .home-sub {
+            font-size: 13px;
+            color: var(--text3);
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: .3px;
+        }
+
+        .home-desc {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .home-desc strong {
+            color: var(--gold);
+        }
+
+        .de-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .de-btn {
+            background: rgba(255, 255, 255, .05);
+            border: 1.5px solid var(--border2);
+            border-radius: 14px;
+            padding: 14px 18px;
+            text-align: left;
+            cursor: pointer;
+            transition: all .18s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .de-btn:hover {
+            background: rgba(99, 102, 241, .15);
+            border-color: var(--purple);
+            transform: translateX(4px);
+        }
+
+        .de-btn .de-num {
+            font-family: 'Baloo 2', cursive;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--gold);
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .de-btn .de-info {
+            flex: 1;
+        }
+
+        .de-btn .de-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .de-btn .de-detail {
+            font-size: 12px;
+            color: var(--text3);
+            margin-top: 2px;
+        }
+
+        .de-btn .de-arr {
+            font-size: 18px;
+            color: var(--text3);
+        }
+
+        .credit {
+            font-size: 11px;
+            color: var(--text3);
+            margin-top: 8px;
+        }
+
+        .credit strong {
+            color: var(--gold2);
+        }
+
+        /* ─── GAME SCREEN ─── */
+        #gameScreen {
+            display: none;
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: rgba(15, 23, 42, .9);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            flex-shrink: 0;
+        }
+
+        .tb-back {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .15s;
+            white-space: nowrap;
+        }
+
+        .tb-back:hover {
+            background: rgba(255, 255, 255, .12);
+            color: var(--text);
+        }
+
+        .tb-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(14px, 2vw, 17px);
+            font-weight: 800;
+            color: var(--gold);
+            flex: 1;
+            text-align: center;
+        }
+
+        .tb-prog {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tb-score {
+            font-family: 'Baloo 2', cursive;
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--green);
+        }
+
+        .tb-qcount {
+            font-size: 12px;
+            color: var(--text3);
+            font-weight: 700;
+        }
+
+        .progbar {
+            width: 80px;
+            height: 6px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progbar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--purple), var(--pink));
+            border-radius: 3px;
+            transition: width .4s;
+        }
+
+        /* SPLIT LAYOUT */
+        .split {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        /* LEFT — reading passage */
+        .passage-pane {
+            width: 42%;
+            min-width: 260px;
+            background: rgba(15, 23, 42, .7);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .passage-header {
+            padding: 12px 16px 8px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .passage-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--text3);
+            margin-bottom: 4px;
+        }
+
+        .passage-title-text {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .passage-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 20px;
+            font-size: clamp(12px, 1.3vw, 13.5px);
+            line-height: 1.85;
+            color: var(--text2);
+        }
+
+        .passage-body p {
+            margin-bottom: 10px;
+        }
+
+        .passage-body .dialogue {
+            border-left: 2px solid var(--purple);
+            padding-left: 10px;
+            margin: 6px 0;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .passage-body::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .passage-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .passage-body::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 2px;
+        }
+
+        /* RIGHT — questions */
+        .questions-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .questions-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 80px;
+        }
+
+        .questions-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .questions-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .questions-scroll::-webkit-scrollbar-thumb {
+            background: var(--border2);
+            border-radius: 2px;
+        }
+
+        /* Question block */
+        .q-block {
+            background: rgba(30, 41, 59, .6);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            transition: border-color .2s;
+        }
+
+        .q-block.answered-correct {
+            border-color: rgba(52, 211, 153, .4);
+            background: rgba(52, 211, 153, .05);
+        }
+
+        .q-block.answered-wrong {
+            border-color: rgba(248, 113, 113, .3);
+            background: rgba(248, 113, 113, .04);
+        }
+
+        .q-num {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--text3);
+            margin-bottom: 6px;
+        }
+
+        .q-text {
+            font-size: clamp(12px, 1.4vw, 14px);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .q-text .pts {
+            font-size: 11px;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* Multiple choice */
+        .mc-opts {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .mc-opt {
+            background: rgba(255, 255, 255, .05);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 13px;
+            font-size: clamp(11px, 1.3vw, 13px);
+            font-weight: 600;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all .18s;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.5;
+        }
+
+        .mc-opt:hover:not(.locked) {
+            background: rgba(99, 102, 241, .15);
+            border-color: var(--purple);
+            color: var(--text);
+        }
+
+        .mc-opt .opt-key {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 900;
+            font-size: 13px;
+            color: var(--purple);
+            min-width: 16px;
+        }
+
+        .mc-opt.correct {
+            background: rgba(52, 211, 153, .15);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .mc-opt.wrong {
+            background: rgba(248, 113, 113, .15);
+            border-color: var(--red);
+            color: var(--red);
+            animation: shake .3s;
+        }
+
+        .mc-opt.reveal {
+            background: rgba(52, 211, 153, .08);
+            border-color: rgba(52, 211, 153, .3);
+            color: rgba(52, 211, 153, .7);
+        }
+
+        .mc-opt.locked {
+            pointer-events: none;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-5px)
+            }
+
+            75% {
+                transform: translateX(5px)
+            }
+        }
+
+        /* True/False */
+        .tf-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tf-item {
+            background: rgba(255, 255, 255, .04);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 13px;
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .tf-item-text {
+            font-size: clamp(11px, 1.2vw, 12.5px);
+            color: var(--text2);
+            margin-bottom: 8px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .tf-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .tf-btn {
+            flex: 1;
+            padding: 6px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: rgba(255, 255, 255, .05);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .15s;
+            color: var(--text2);
+        }
+
+        .tf-btn:hover:not(.locked) {
+            background: rgba(99, 102, 241, .2);
+            border-color: var(--purple);
+            color: #fff;
+        }
+
+        .tf-btn.correct {
+            background: rgba(52, 211, 153, .2);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .tf-btn.wrong {
+            background: rgba(248, 113, 113, .2);
+            border-color: var(--red);
+            color: var(--red);
+            animation: shake .3s;
+        }
+
+        .tf-btn.reveal {
+            background: rgba(52, 211, 153, .1);
+            border-color: rgba(52, 211, 153, .3);
+            color: rgba(52, 211, 153, .7);
+        }
+
+        .tf-btn.locked {
+            pointer-events: none;
+        }
+
+        /* Open answer */
+        .open-ans {
+            background: rgba(255, 255, 255, .04);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 13px;
+            font-size: clamp(11px, 1.3vw, 13px);
+            color: var(--text2);
+            line-height: 1.7;
+        }
+
+        .open-ans .ans-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--text3);
+            margin-bottom: 5px;
+        }
+
+        .open-ans .ans-text {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .show-ans-btn {
+            margin-top: 8px;
+            background: rgba(96, 165, 250, .1);
+            border: 1.5px solid rgba(96, 165, 250, .25);
+            border-radius: 9px;
+            padding: 7px 13px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--blue);
+            cursor: pointer;
+            transition: all .15s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .show-ans-btn:hover {
+            background: rgba(96, 165, 250, .2);
+        }
+
+        .ans-reveal {
+            display: none;
+            margin-top: 8px;
+        }
+
+        .ans-reveal.show {
+            display: block;
+        }
+
+        /* Fill blank */
+        .fill-sentence {
+            font-size: clamp(13px, 1.5vw, 15px);
+            font-weight: 700;
+            color: var(--text);
+            line-height: 2.4;
+            margin-bottom: 12px;
+        }
+
+        .blank-slot {
+            display: inline-block;
+            min-width: 50px;
+            height: 30px;
+            background: rgba(255, 255, 255, .07);
+            border-bottom: 2.5px solid var(--purple);
+            border-radius: 5px 5px 0 0;
+            padding: 0 8px;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 30px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--purple);
+            cursor: default;
+            transition: all .2s;
+        }
+
+        .blank-slot.filled {
+            background: rgba(167, 139, 250, .15);
+        }
+
+        .blank-slot.correct {
+            background: rgba(52, 211, 153, .15);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .blank-slot.wrong {
+            background: rgba(248, 113, 113, .15);
+            border-color: var(--red);
+            color: var(--red);
+            animation: shake .3s;
+        }
+
+        .fill-choices {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .fill-chip {
+            background: rgba(255, 255, 255, .07);
+            border: 1.5px solid var(--border2);
+            border-radius: 9px;
+            padding: 6px 13px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .fill-chip:hover:not(.used) {
+            background: rgba(167, 139, 250, .2);
+            border-color: var(--purple);
+        }
+
+        .fill-chip.used {
+            opacity: .3;
+            pointer-events: none;
+            border-style: dashed;
+        }
+
+        .fill-chip.correct-src {
+            background: rgba(52, 211, 153, .15);
+            border-color: var(--green);
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        /* Result feedback */
+        .q-result {
+            display: none;
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 11px;
+            border-radius: 9px;
+        }
+
+        .q-result.show {
+            display: block;
+        }
+
+        .q-result.ok {
+            background: rgba(52, 211, 153, .12);
+            color: var(--green);
+        }
+
+        .q-result.no {
+            background: rgba(248, 113, 113, .12);
+            color: var(--red);
+        }
+
+        /* DONE PANEL */
+        #donePanel {
+            display: none;
+            position: relative;
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .done-card {
+            background: rgba(30, 41, 59, .95);
+            border: 1.5px solid var(--border2);
+            border-radius: 28px;
+            padding: clamp(28px, 5vh, 48px) clamp(24px, 5vw, 48px);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, .5);
+        }
+
+        .done-trophy {
+            font-size: 72px;
+            display: block;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .done-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(22px, 4vw, 32px);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .done-score {
+            font-family: 'Baloo 2', cursive;
+            font-size: clamp(36px, 7vw, 52px);
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .done-stars {
+            font-size: 36px;
+            margin: 6px 0 12px;
+        }
+
+        .done-msg {
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .done-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ds {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 8px;
+        }
+
+        .ds .de {
+            font-size: 22px;
+            margin-bottom: 3px;
+        }
+
+        .ds .dl {
+            font-size: 10px;
+            color: var(--text3);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .ds .dv {
+            font-family: 'Baloo 2', cursive;
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--text);
+        }
+
+        .done-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .done-replay {
+            background: linear-gradient(135deg, #6366f1, var(--pink));
+            border: none;
+            color: #fff;
+            border-radius: 14px;
+            padding: 14px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: filter .15s, transform .1s;
+        }
+
+        .done-replay:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        .done-home {
+            background: rgba(255, 255, 255, .07);
+            border: 1.5px solid var(--border2);
+            color: var(--text2);
+            border-radius: 14px;
+            padding: 12px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .done-home:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        /* BURST */
+        .burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 24px;
+            animation: burst-anim .8s ease-out forwards;
+        }
+
+        @keyframes burst-anim {
+            0% {
+                opacity: 1;
+                transform: scale(.3) translateY(0)
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.6) translateY(-80px)
+            }
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width:640px) {
+            .split {
+                flex-direction: column;
+            }
+
+            .passage-pane {
+                width: 100%;
+                height: 38vh;
+                min-height: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .questions-pane {
+                flex: 1;
+            }
+
+            .topbar {
+                padding: 8px 12px;
+            }
+
+            .tb-title {
+                font-size: 13px;
+            }
+
+            .progbar {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="stars"></div>
+
+    <!-- HOME -->
+    <div id="homeScreen">
+        <div class="home-card">
+            <span class="home-emoji">📚</span>
+            <div class="home-title">Ôn Thi Tiếng Việt 3</div>
+            <div class="home-sub">Đọc Hiểu & Luyện Từ Câu · Lớp 3 · 2025–2026</div>
+            <div class="home-desc">
+                Chào <strong>Yến Nhi</strong>! 🌟 Bài đọc hiện ở <strong>bên trái</strong>, câu hỏi ở <strong>bên
+                    phải</strong>.<br>
+                Chọn đề nào muốn ôn rồi bắt đầu nhé!
+            </div>
+            <div class="de-list" id="deList"></div>
+            <div class="credit">Được tạo bởi <strong>Chú Ba</strong> — dành tặng bé Yến Nhi 💛</div>
+        </div>
+    </div>
+
+    <!-- GAME -->
+    <div id="gameScreen">
+        <div class="topbar">
+            <button class="tb-back" onclick="goHome()">← Đề khác</button>
+            <div class="tb-title" id="tbTitle">Đề 1</div>
+            <div class="tb-prog">
+                <span class="tb-qcount" id="tbQCount">0/9</span>
+                <div class="progbar">
+                    <div class="progbar-fill" id="progFill" style="width:0%"></div>
+                </div>
+                <span class="tb-score">⭐ <span id="tbScore">0</span></span>
+            </div>
+        </div>
+        <div class="split">
+            <div class="passage-pane">
+                <div class="passage-header">
+                    <div class="passage-label">📖 Bài đọc</div>
+                    <div class="passage-title-text" id="passageTitle"></div>
+                </div>
+                <div class="passage-body" id="passageBody"></div>
+            </div>
+            <div class="questions-pane">
+                <div class="questions-scroll" id="questionsScroll"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DONE -->
+    <div id="donePanel">
+        <div class="done-card">
+            <span class="done-trophy" id="doneTrophy">🏆</span>
+            <div class="done-title" id="doneTitle">Hoàn thành!</div>
+            <div class="done-score" id="doneScore">0 điểm</div>
+            <div class="done-stars" id="doneStars">⭐⭐⭐</div>
+            <div class="done-msg" id="doneMsg"></div>
+            <div class="done-stats" id="doneStats"></div>
+            <div class="done-btns">
+                <button class="done-replay" onclick="replayDe()">🔄 Làm lại đề này</button>
+                <button class="done-home" onclick="goHome()">🏠 Chọn đề khác</button>
+            </div>
+            <div class="credit" style="margin-top:12px">Được tạo bởi <strong>Chú Ba</strong> — dành tặng bé Yến Nhi 💛
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ══════════════════════════════════════════════════
+           DATA — 5 đề, câu hỏi bám sát tài liệu
+           ══════════════════════════════════════════════════ */
+        const BANK = [
+
+            /* ──────────────────────────────────────────────────
+               ĐỀ 1 — CON BÚP BÊ BẰNG VẢI
+               ────────────────────────────────────────────────── */
+            {
+                id: 1,
+                title: 'Đề 1 — Con Búp Bê Bằng Vải',
+                storyTitle: 'Con Búp Bê Bằng Vải',
+                story: `<p>Ngày sinh nhật Thủy, mẹ đưa Thủy ra phố đồ chơi. Mẹ bảo Thủy chọn một món đồ chơi em thích nhất. Đi dọc gần hết phố đồ chơi, cô bé nhìn hoa cả mắt, vẫn không biết nên mua gì vì thứ nào em cũng thích. Đến cuối phố, thấy một bà cụ tóc bạc ngồi bán những con búp bê bằng vải giữa trời giá lạnh, Thủy kéo tay mẹ dừng lại. Bà cụ nhìn hai mẹ con Thủy, cười hiền hậu:</p>
+<p class="dialogue">– Cháu mua búp bê cho bà đi!</p>
+<p>Thủy nhìn bà, rồi chỉ vào con búp bê được khâu bằng mụn vải xanh, mặt độn bông, hai con mắt được chấm mực không đều nhau:</p>
+<p class="dialogue">– Mẹ mua con búp bê này đi!</p>
+<p>Trên đường về mẹ hỏi Thủy:</p>
+<p class="dialogue">– Sao con lại mua con búp bê này?</p>
+<p>Thủy cười:</p>
+<p class="dialogue">– Vì con thương bà. Bà già bằng bà nội, mẹ nhỉ? Trời lạnh thế mà bà không được ở nhà, con mua búp bê cho bà vui.</p>
+<p style="color:var(--text3);font-size:12px;margin-top:12px;">(Sưu tầm)</p>`,
+                questions: [
+                    {
+                        id: '1_1', type: 'mc', pts: 0.5, text: 'Câu 1: Ngày sinh nhật Thủy, mẹ đưa Thủy ra phố đồ chơi để làm gì?',
+                        opts: ['Để Thủy được nhìn ngắm đồ chơi.', 'Để Thủy được chọn mua đồ chơi nhiều tiền nhất.', 'Để Thủy được chọn mua món đồ chơi em thích nhất.'],
+                        ans: 2
+                    },
+                    {
+                        id: '1_2', type: 'mc', pts: 0.5, text: 'Câu 2: Vì sao đi gần hết phố, Thủy vẫn chưa mua được quà gì?',
+                        opts: ['Vì Thủy hoa mắt, chóng mặt, không muốn chọn gì.', 'Vì đồ chơi nhiều đến hoa mắt, thứ gì Thủy cũng thích.', 'Vì nhiều đồ chơi nhưng đồ chơi nào cũng không đẹp.'],
+                        ans: 1
+                    },
+                    {
+                        id: '1_3', type: 'mc', pts: 0.5, text: 'Câu 3: Thủy đã chọn mua món quà có đặc điểm gì?',
+                        opts: ['Con búp bê được khâu bằng mụn vải xanh, mặt độn bông.', 'Con búp bê mặt độn bông, hai con mắt được chấm mực không đều nhau.', 'Con búp bê được khâu bằng mụn vải xanh, mặt độn bông, hai con mắt được chấm mực không đều nhau.'],
+                        ans: 2
+                    },
+                    {
+                        id: '1_4', type: 'tf', pts: 0.5, text: 'Câu 4: Vì sao Thủy mua con búp bê vải? (Đúng ghi Đ, sai ghi S)',
+                        items: [
+                            { text: 'A. Vì đó là món quà đẹp nhất.', ans: 'S' },
+                            { text: 'B. Vì em thương bà cụ bán hàng dưới trời lạnh.', ans: 'Đ' },
+                        ]
+                    },
+                    {
+                        id: '1_5', type: 'open', pts: 1, text: 'Câu 5: Qua câu chuyện trên em học tập được đức tính gì ở Thủy để có thể vận dụng vào cuộc sống?',
+                        ans: 'Qua bài đọc, em học được đức tính nhân hậu, biết quan tâm, chia sẻ đến những người có hoàn cảnh khó khăn.'
+                    },
+                    {
+                        id: '1_6', type: 'open', pts: 1, text: 'Câu 6: Dấu gạch ngang trong bài "Con búp bê bằng vải" dùng để làm gì?',
+                        ans: 'Dấu gạch ngang có tác dụng đánh dấu lời nói trực tiếp của nhân vật.'
+                    },
+                    {
+                        id: '1_7', type: 'mc', pts: 0.5, text: 'Câu 7: Tìm câu khiến trong các câu dưới đây:',
+                        opts: ['Bà già bằng bà nội, mẹ nhỉ?', 'Cháu mua búp bê cho bà đi!', 'Con mua búp bê cho bà vui.'],
+                        ans: 1
+                    },
+                    {
+                        id: '1_8', type: 'open', pts: 0.5, text: 'Câu 8: Em hãy đặt một câu có hình ảnh so sánh.',
+                        ans: 'Ví dụ: "Mặt trăng tròn như cái đĩa bạc trên trời." (HS đặt câu theo ý mình, cần có hình ảnh so sánh)'
+                    },
+                    {
+                        id: '1_9a', type: 'fill', pts: 0.5, text: 'Câu 9a: Điền dấu câu thích hợp vào chỗ trống',
+                        sentence: 'Anh: – Sao em không uống thuốc đúng giờ thế [?]\nEm: – Thuốc đó đắng lắm [!]',
+                        blanks: [{ ans: '?' }, { ans: '!' }],
+                        choices: ['?', '!', '.', ',', '"']
+                    },
+                    {
+                        id: '1_9b', type: 'open', pts: 0.5, text: 'Câu 9b: Trong câu "Ngày sinh nhật Thủy, mẹ đưa Thủy ra phố đồ chơi." — Đặt câu hỏi cho bộ phận in đậm: "ngày sinh nhật Thủy"',
+                        ans: 'Mẹ đưa Thủy ra phố đồ chơi khi nào?'
+                    },
+                ]
+            },
+
+            /* ──────────────────────────────────────────────────
+               ĐỀ 2 — HÃY TIN VÀO CHÍNH MÌNH
+               ────────────────────────────────────────────────── */
+            {
+                id: 2,
+                title: 'Đề 2 — Hãy Tin Vào Chính Mình',
+                storyTitle: 'Hãy Tin Vào Chính Mình',
+                story: `<p>Mùa đông đến, cả gia đình én bay đi tránh rét. Én Con mới tập bay. Đây là lần đầu tiên chú phải bay xa đến vậy. Trên đường đi, gia đình én phải bay qua một con sông lớn, nước chảy xiết, Én Con sợ hãi nhìn dòng sông. Én Con sẽ bị chóng mặt và rơi xuống mất. Bố mẹ động viên Én Con rất nhiều, nhưng chú vẫn không dám bay qua. Bố liền ngắt cho Én Con một chiếc lá rồi nói:</p>
+<p class="dialogue">– Con hãy cầm chiếc lá thần kì này. Nó sẽ bảo vệ con được an toàn.</p>
+<p>Lúc qua sông rồi. Én Con vui vẻ bảo bố:</p>
+<p class="dialogue">– Bố ơi, chiếc lá thần kì tuyệt vời quá! Nó giúp con qua sông an toàn rồi đây này.</p>
+<p>Bố Én Con ôn tồn bảo:</p>
+<p class="dialogue">– Không phải chiếc lá thần kì đâu con ạ. Đó chỉ là một chiếc lá bình thường như bao chiếc lá khác. Cái chính là con đã vững tin và rất cố gắng.</p>
+<p style="color:var(--text3);font-size:12px;margin-top:12px;">(Theo Nguyễn Thị Thu Hà)</p>`,
+                questions: [
+                    {
+                        id: '2_1', type: 'mc', pts: 0.5, text: 'Câu 1: Mùa đông đến, gia đình én thường làm gì?',
+                        opts: ['Tổ chức lễ hội ăn mừng.', 'Bay tới phương nam tránh rét.', 'Tổ chức cuộc thi trong gia đình.'],
+                        ans: 1
+                    },
+                    {
+                        id: '2_2', type: 'mc', pts: 0.5, text: 'Câu 2: Lần bay đi tránh rét này, đối với Én Con có gì đặc biệt?',
+                        opts: ['Én Con mới tập bay nên đây là lần đầu tiên Én Con bay xa như vậy.', 'Én Con bị thương ở chân nên việc bay sẽ khó khăn hơn.', 'Én Con được giao nhiệm vụ dẫn đầu đoàn bay.'],
+                        ans: 0
+                    },
+                    {
+                        id: '2_3', type: 'mc', pts: 0.5, text: 'Câu 3: Trên đường bay đi tránh rét, gia đình Én Con gặp phải khó khăn gì?',
+                        opts: ['Én bố bị thương, cần có người chăm sóc.', 'Phải bay qua một con sông lớn, nước chảy rất xiết.', 'Gặp phải một trận bão kéo dài nhiều ngày liền.'],
+                        ans: 1
+                    },
+                    {
+                        id: '2_4', type: 'mc', pts: 0.5, text: 'Câu 4: Theo em, vì điều gì mà Én Con có thể bay được qua sông?',
+                        opts: ['Vì có chiếc lá thần kì.', 'Vì có bố mẹ én luôn bay sát bên cạnh.', 'Vì bản thân Én Con đã vững tin và rất cố gắng.'],
+                        ans: 2
+                    },
+                    {
+                        id: '2_5', type: 'open', pts: 1, text: 'Câu 5: Em rút ra được bài học gì sau khi đọc xong câu chuyện trên?',
+                        ans: 'Chỉ cần cố gắng hết sức và tin tưởng vào chính mình thì nhất định sẽ thành công.'
+                    },
+                    {
+                        id: '2_6', type: 'open', pts: 1, text: 'Câu 6: Em hãy tìm và viết lại một câu khiến trong bài "Hãy tin vào chính mình".',
+                        ans: 'Con hãy cầm chiếc lá thần kì này.'
+                    },
+                    {
+                        id: '2_7', type: 'mc', pts: 0.5, text: 'Câu 7: Dấu gạch ngang trong bài "Hãy tin vào chính mình" được dùng để làm gì?',
+                        opts: ['Báo hiệu lời nói trực tiếp của nhân vật.', 'Báo hiệu phần liệt kê.', 'Dùng để đánh dấu phần giải thích.'],
+                        ans: 0
+                    },
+                    {
+                        id: '2_8', type: 'open', pts: 0.5, text: 'Câu 8: Em hãy đặt một câu có hình ảnh so sánh.',
+                        ans: 'Ví dụ: "Mặt trăng tròn như cái đĩa bạc trên trời." (HS đặt câu theo ý mình)'
+                    },
+                    {
+                        id: '2_9a', type: 'fill', pts: 0.5, text: 'Câu 9a: Điền dấu câu thích hợp — Bác Hồ đã từng nói rằng: ["] Học cái tốt thì khó ... nhào xuống vực sâu ["]',
+                        sentence: 'Bác Hồ đã từng nói rằng: ["]\nHọc cái tốt thì khó, ... nhào xuống vực sâu\n["]',
+                        blanks: [{ ans: '"' }, { ans: '"' }],
+                        choices: ['"', '.', ',', '!', '?']
+                    },
+                    {
+                        id: '2_9b', type: 'open', pts: 0.5, text: 'Câu 9b: "Mùa đông đến, cả gia đình én bay đi tránh rét." — Đặt câu hỏi cho bộ phận in đậm: "Mùa đông đến"',
+                        ans: 'Cả gia đình én bay đi tránh rét khi nào?'
+                    },
+                ]
+            },
+
+            /* ──────────────────────────────────────────────────
+               ĐỀ 3 — CON BÚP BÊ BẰNG VẢI (lần 2)
+               ────────────────────────────────────────────────── */
+            {
+                id: 3,
+                title: 'Đề 3 — Con Búp Bê Bằng Vải (tiếp)',
+                storyTitle: 'Con Búp Bê Bằng Vải',
+                story: `<p>Ngày sinh nhật Thủy, mẹ đưa Thủy ra phố đồ chơi. Mẹ bảo Thủy chọn một món đồ chơi em thích nhất. Đi dọc gần hết phố đồ chơi, cô bé nhìn hoa cả mắt, vẫn không biết nên mua gì vì thứ nào em cũng thích. Đến cuối phố, thấy một bà cụ tóc bạc ngồi bán những con búp bê bằng vải giữa trời giá lạnh, Thủy kéo tay mẹ dừng lại. Bà cụ nhìn hai mẹ con Thủy, cười hiền hậu:</p>
+<p class="dialogue">– Cháu mua búp bê cho bà đi!</p>
+<p>Thủy nhìn bà, rồi chỉ vào con búp bê được khâu bằng mụn vải xanh, mặt độn bông, hai con mắt được chấm mực không đều nhau:</p>
+<p class="dialogue">– Mẹ mua con búp bê này đi!</p>
+<p>Trên đường về mẹ hỏi Thủy:</p>
+<p class="dialogue">– Sao con lại mua con búp bê này?</p>
+<p>Thủy cười:</p>
+<p class="dialogue">– Vì con thương bà. Bà già bằng bà nội, mẹ nhỉ? Trời lạnh thế mà bà không được ở nhà, con mua búp bê cho bà vui.</p>`,
+                questions: [
+                    {
+                        id: '3_1', type: 'mc', pts: 0.5, text: 'Câu 1: Ngày sinh nhật Thủy, mẹ đưa Thủy ra phố đồ chơi để làm gì?',
+                        opts: ['Để Thủy được nhìn ngắm đồ chơi.', 'Để Thủy được chọn mua đồ chơi nhiều tiền nhất.', 'Để Thủy được chọn mua món đồ chơi em thích nhất.'],
+                        ans: 2
+                    },
+                    {
+                        id: '3_2', type: 'mc', pts: 0.5, text: 'Câu 2: Vì sao đi gần hết phố, Thủy vẫn chưa mua được quà gì?',
+                        opts: ['Vì Thủy hoa mắt, chóng mặt, không muốn chọn gì.', 'Vì đồ chơi nhiều đến hoa mắt, thứ gì Thủy cũng thích.', 'Vì nhiều đồ chơi nhưng đồ chơi nào cũng không đẹp.'],
+                        ans: 1
+                    },
+                    {
+                        id: '3_3', type: 'mc', pts: 0.5, text: 'Câu 3: Thủy đã chọn mua món quà có đặc điểm gì?',
+                        opts: ['Con búp bê được khâu bằng mụn vải xanh, mặt độn bông.', 'Con búp bê mặt độn bông, hai con mắt được chấm mực không đều nhau.', 'Con búp bê được khâu bằng mụn vải xanh, mặt độn bông, hai con mắt được chấm mực không đều nhau.'],
+                        ans: 2
+                    },
+                    {
+                        id: '3_4', type: 'mc', pts: 0.5, text: 'Câu 4: Vì sao Thuỷ lại chọn mua con búp bê của bà cụ?',
+                        opts: ['Vì Thuỷ rất thích con búp bê.', 'Vì Thuỷ thương bà cụ.', 'Vì Thuỷ không còn lựa chọn nào khác.'],
+                        ans: 1
+                    },
+                    {
+                        id: '3_5', type: 'open', pts: 1, text: 'Câu 5: Qua câu chuyện trên em học tập được đức tính gì ở Thủy, để có thể vận dụng vào cuộc sống?',
+                        ans: 'Qua câu chuyện em học được từ Thuỷ về tấm lòng nhân hậu, biết quan tâm, yêu thương, cảm thông, giúp đỡ người khó khăn từ những việc làm nhỏ.'
+                    },
+                    {
+                        id: '3_6', type: 'open', pts: 1, text: 'Câu 6: Tìm và ghi lại câu khiến có trong bài đọc.',
+                        ans: '– Cháu mua búp bê cho bà đi!\n– Mẹ mua con búp bê này đi!'
+                    },
+                    {
+                        id: '3_7', type: 'mc', pts: 0.5, text: 'Câu 7: Trong các cặp từ sau, cặp từ nào có nghĩa trái ngược nhau?',
+                        opts: ['Bé – tí hon', 'nắng – mưa', 'to – lớn'],
+                        ans: 1
+                    },
+                    {
+                        id: '3_8', type: 'mc', pts: 0.5, text: 'Câu 8: Tác dụng của dấu gạch ngang "–" trong bài đọc:',
+                        opts: ['Báo hiệu lời nói trực tiếp của nhân vật.', 'Báo hiệu phần liệt kê.', 'Đánh dấu phần giải thích.'],
+                        ans: 0
+                    },
+                    {
+                        id: '3_9', type: 'open', pts: 1, text: 'Câu 9: Tìm từ có nghĩa GIỐNG với các từ sau:\n• đông đúc: ___\n• chăm chỉ: ___',
+                        ans: '• đông đúc → nhộn nhịp, tấp nập, …\n• chăm chỉ → siêng năng, cần cù, …'
+                    },
+                ]
+            },
+
+            /* ──────────────────────────────────────────────────
+               ĐỀ 4 — BÀI HỌC CỦA GÀ CON
+               ────────────────────────────────────────────────── */
+            {
+                id: 4,
+                title: 'Đề 4 — Bài Học Của Gà Con',
+                storyTitle: 'Bài Học Của Gà Con',
+                story: `<p>Một hôm, Vịt con và Gà con đang chơi trốn tìm trong rừng, bỗng nhiên có một con Cáo xuất hiện. Nhìn thấy Cáo, Vịt con sợ quá khóc ầm lên. Gà con thấy thế vội bỏ mặc bạn, nhảy phắt lên cành cây để trốn. Chú giả vờ không nghe, không thấy Vịt con đang hoảng hốt kêu cứu.</p>
+<p>Cáo đã đến rất gần. Vịt con sợ quá, quên mất bên cạnh mình có một hồ nước, chú vội vàng nằm giả vờ chết. Cáo vốn chỉ thích ăn thịt tươi, nó lại gần Vịt, ngửi vài cái rồi bỏ đi.</p>
+<p>Gà con đậu trên cây cao thấy Cáo bỏ đi, liền nhảy xuống. Ai dè "tùm" một tiếng, Gà con rơi thẳng xuống nước. Cậu chới với kêu:</p>
+<p class="dialogue">– Cứu tôi với, tôi không biết bơi!</p>
+<p>Vịt con nghe tiếng kêu, không ngần ngại lao xuống cứu bạn lên bờ. Rũ bộ lông ướt sũng, Gà con xấu hổ nói:</p>
+<p class="dialogue">– Hãy tha lỗi cho tớ, sau này nhất định tớ sẽ không bao giờ bỏ rơi cậu nữa.</p>
+<p style="color:var(--text3);font-size:12px;margin-top:12px;">(Theo Những câu chuyện về tình bạn)</p>`,
+                questions: [
+                    {
+                        id: '4_1', type: 'mc', pts: 0.5, text: 'Câu 1: Khi thấy Vịt con kêu khóc, Gà con đã làm gì?',
+                        opts: ['Gà con cũng khóc theo Vịt con.', 'Gà con dỗ dành cho bạn đỡ sợ.', 'Gà con nhảy phắt lên cành cây để trốn, bỏ mặc Vịt con.'],
+                        ans: 2
+                    },
+                    {
+                        id: '4_2', type: 'mc', pts: 0.5, text: 'Câu 2: Trong lúc nguy hiểm, Vịt con đã làm gì để thoát thân?',
+                        opts: ['Vịt con hoảng hốt kêu cứu.', 'Vịt con vội vàng nằm giả vờ chết.', 'Vịt con nhảy xuống hồ nước ngay bên cạnh.'],
+                        ans: 1
+                    },
+                    {
+                        id: '4_3', type: 'mc', pts: 0.5, text: 'Câu 3: Khi Gà con rơi xuống nước, Vịt con đã làm gì?',
+                        opts: ['Vịt con không ngần ngại lao xuống cứu bạn lên bờ.', 'Vịt con chạy mất, bỏ mặc Gà con.', 'Vịt con sợ quá khóc ầm lên.'],
+                        ans: 0
+                    },
+                    {
+                        id: '4_4', type: 'mc', pts: 0.5, text: 'Câu 4: Vì sao Gà con cảm thấy xấu hổ?',
+                        opts: ['Vì Gà con thấy Vịt con bơi giỏi.', 'Vì Gà con đã đối xử không tốt với bạn.', 'Vì Gà con không biết bơi.'],
+                        ans: 1
+                    },
+                    {
+                        id: '4_5', type: 'open', pts: 1, text: 'Câu 5: Qua câu chuyện trên, em rút ra được bài học gì?',
+                        ans: 'Nên giúp đỡ bạn bè khi gặp khó khăn, hoạn nạn. Không nên ích kỉ chỉ nghĩ cho bản thân, bỏ mặc bạn bè.'
+                    },
+                    {
+                        id: '4_6', type: 'open', pts: 1, text: 'Câu 6: Dấu gạch ngang trong bài đọc trên có tác dụng gì?',
+                        ans: 'Dấu gạch ngang có tác dụng đánh dấu lời nói trực tiếp của nhân vật.'
+                    },
+                    {
+                        id: '4_7', type: 'mc', pts: 0.5, text: 'Câu 7: Phần gạch chân trong câu: "Vịt con và Gà con đang chơi trốn tìm trong rừng." — "trong rừng" trả lời cho câu hỏi nào?',
+                        opts: ['Khi nào?', 'Ở đâu?', 'Bằng gì?'],
+                        ans: 1
+                    },
+                    {
+                        id: '4_8', type: 'mc', pts: 0.5, text: 'Câu 8: Những sự vật nào được so sánh với nhau trong câu thơ:\n"Những đêm nào trăng khuyết / Trông giống con thuyền trôi"',
+                        opts: ['Đêm so sánh với con thuyền trôi.', 'Đêm so sánh với trăng khuyết.', 'Trăng khuyết so sánh với con thuyền trôi.'],
+                        ans: 2
+                    },
+                    {
+                        id: '4_9a', type: 'fill', pts: 0.5, text: 'Câu 9a: Điền dấu thích hợp vào ô trống:\n"Hoa vừa đi học về. Vừa vào cửa, em đã ngửi thấy mùi thơm. Em vội reo lên [:]\n– Ôi! Thơm quá [!] Mẹ nấu món gì thế ạ?"',
+                        blanks: [{ ans: ':' }, { ans: '!' }],
+                        choices: [':', '!', '?', '.', ',', '–']
+                    },
+                    {
+                        id: '4_9b', type: 'open', pts: 0.5, text: 'Câu 9b: Đặt một câu khiến để mượn bạn một quyển sách.',
+                        ans: 'Ví dụ: "Bạn cho mình mượn quyển sách này nhé!" / "Bạn hãy cho mình mượn quyển sách này nha!"'
+                    },
+                ]
+            },
+
+            /* ──────────────────────────────────────────────────
+               ĐỀ 5 — CÂY MƯỚP CỦA ÔNG
+               ────────────────────────────────────────────────── */
+            {
+                id: 5,
+                title: 'Đề 5 — Cây Mướp Của Ông',
+                storyTitle: 'Cây Mướp Của Ông',
+                story: `<p>Mùa hè đến, giàn mướp của ông nội đã leo kín mái hiên. Những bông hoa mướp nở rộ, vàng rực rỡ như những đốm lửa nhỏ lung linh trong nắng. Thấy bé Mai định hái một bông hoa đẹp nhất để chơi, ông nội liền ngăn lại:</p>
+<p class="dialogue">– Đừng hái hoa, cháu nhé!</p>
+<p>Mai ngơ ngác hỏi:</p>
+<p class="dialogue">– Ông ơi, vì sao ạ?</p>
+<p>Ông nội cười hiền hậu rồi bảo:</p>
+<p class="dialogue">– Mỗi bông hoa mướp sẽ kết thành một quả mướp ngon đấy!</p>
+<p>Mai hiểu ra, cô bé thầm nghĩ: "Mình phải chăm sóc giàn mướp thật tốt để ông vui." Từ đó, ngày nào Mai cũng hăng hái giúp ông tưới nước cho cây.</p>
+<p style="color:var(--text3);font-size:12px;margin-top:12px;">(Theo Phong Thu)</p>`,
+                questions: [
+                    {
+                        id: '5_1', type: 'mc', pts: 0.5, text: 'Câu 1: Giàn mướp của ông nội leo ở đâu?',
+                        opts: ['Leo kín bờ rào sau nhà.', 'Leo kín mái hiên.', 'Leo trên những cành cây cổ thụ.'],
+                        ans: 1
+                    },
+                    {
+                        id: '5_2', type: 'mc', pts: 0.5, text: 'Câu 2: Những bông hoa mướp được tác giả so sánh với sự vật nào?',
+                        opts: ['Như những đốm lửa nhỏ lung linh.', 'Như những ngôi sao lấp lánh trên trời.', 'Như những chiếc chuông vàng tí hon.'],
+                        ans: 0
+                    },
+                    {
+                        id: '5_3', type: 'mc', pts: 0.5, text: 'Câu 3: Thấy Mai định hái hoa, ông nội đã dặn Mai điều gì?',
+                        opts: ['Cháu hãy hái những bông hoa đã héo.', 'Đừng hái hoa, cháu nhé!', 'Cháu hãy hái hoa để trang trí nhà cửa.'],
+                        ans: 1
+                    },
+                    {
+                        id: '5_4', type: 'mc', pts: 0.5, text: 'Câu 4: Vì sao ông nội lại khuyên Mai không nên hái hoa mướp?',
+                        opts: ['Vì ông muốn để hoa lại để ngắm cho đẹp.', 'Vì hoa mướp rất nhanh héo khi rời khỏi cành.', 'Vì mỗi bông hoa sẽ kết thành một quả mướp ngon.'],
+                        ans: 2
+                    },
+                    {
+                        id: '5_5', type: 'open', pts: 1, text: 'Câu 5: Qua câu chuyện trên, em thấy bạn Mai là một cô bé như thế nào?',
+                        ans: 'Mai là một cô bé ngoan ngoãn, biết nghe lời ông và chăm chỉ, biết giúp đỡ ông chăm sóc cây.'
+                    },
+                    {
+                        id: '5_6', type: 'open', pts: 1, text: 'Câu 6: Dấu gạch ngang (–) trong đoạn văn có tác dụng gì?',
+                        ans: 'Dấu gạch ngang dùng để đánh dấu lời nói trực tiếp của nhân vật trong đoạn văn.'
+                    },
+                    {
+                        id: '5_7', type: 'mc', pts: 0.5, text: 'Câu 7: Trong các câu sau, câu nào là câu khiến?',
+                        opts: ['Giàn mướp nở hoa vàng rực.', 'Mai ơi, cháu hãy tưới nước cho cây mướp đi!', 'Ôi, bông hoa mướp mới đẹp làm sao!'],
+                        ans: 1
+                    },
+                    {
+                        id: '5_8', type: 'open', pts: 0.5, text: 'Câu 8: Tìm câu có hình ảnh so sánh trong đoạn văn trên.',
+                        ans: '"Những bông hoa mướp nở rộ, vàng rực rỡ như những đốm lửa nhỏ lung linh trong nắng."'
+                    },
+                    {
+                        id: '5_9a', type: 'fill', pts: 0.5, text: 'Câu 9a: Điền dấu câu thích hợp vào chỗ trống',
+                        sentence: 'Ông: – Cháu đã tưới nước cho cây chưa [?]\nMai: – Dạ, cháu vừa tưới xong rồi ông ạ [.]',
+                        blanks: [{ ans: '?' }, { ans: '.' }],
+                        choices: ['?', '!', '.', ',']
+                    },
+                    {
+                        id: '5_9b', type: 'open', pts: 0.5, text: 'Câu 9b: Em hãy đặt một câu có hình ảnh so sánh để tả vẻ đẹp của một loài cây hoặc loài hoa.',
+                        ans: 'Ví dụ: "Những bông hướng dương vàng tươi như những mặt trời nhỏ xíu." (HS đặt câu theo ý mình)'
+                    },
+                ]
+            },
+
+        ]; // end BANK
+
+        /* ══════════════════════════════════════════════════
+           STATE
+           ══════════════════════════════════════════════════ */
+        let currentDe = null;
+        let answered = {}; // qid -> {correct,pts}
+        let score = 0;
+        let answeredCount = 0;
+
+        /* ══════════════════════════════════════════════════
+           STARS
+           ══════════════════════════════════════════════════ */
+        (function () {
+            const c = document.getElementById('stars');
+            for (let i = 0; i < 55; i++) {
+                const el = document.createElement('div');
+                el.className = 'star';
+                const sz = 1 + Math.random() * 2.5;
+                el.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random() * 100}%;left:${Math.random() * 100}%;animation-delay:${Math.random() * 6}s;animation-duration:${2 + Math.random() * 4}s`;
+                c.appendChild(el);
+            }
+        })();
+
+        /* ══════════════════════════════════════════════════
+           HOME
+           ══════════════════════════════════════════════════ */
+        function buildHome() {
+            const list = document.getElementById('deList');
+            list.innerHTML = '';
+            BANK.forEach((de, i) => {
+                const btn = document.createElement('div');
+                btn.className = 'de-btn';
+                btn.innerHTML = `<div class="de-num">Đề ${de.id}</div><div class="de-info"><div class="de-name">${de.storyTitle}</div><div class="de-detail">${de.questions.length} câu hỏi</div></div><div class="de-arr">→</div>`;
+                btn.onclick = () => startDe(de);
+                list.appendChild(btn);
+            });
+        }
+
+        function goHome() {
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('donePanel').style.display = 'none';
+            document.getElementById('homeScreen').style.display = 'flex';
+        }
+
+        /* ══════════════════════════════════════════════════
+           START DE
+           ══════════════════════════════════════════════════ */
+        function startDe(de) {
+            currentDe = de;
+            answered = {};
+            score = 0;
+            answeredCount = 0;
+
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('donePanel').style.display = 'none';
+            const gs = document.getElementById('gameScreen');
+            gs.style.display = 'flex';
+
+            document.getElementById('tbTitle').textContent = de.title;
+            document.getElementById('passageTitle').textContent = de.storyTitle;
+            document.getElementById('passageBody').innerHTML = de.story;
+
+            updateHud();
+            renderQuestions();
+        }
+
+        function replayDe() {
+            if (currentDe) startDe(currentDe);
+        }
+
+        function updateHud() {
+            const total = currentDe.questions.length;
+            document.getElementById('tbQCount').textContent = `${answeredCount}/${total}`;
+            document.getElementById('progFill').style.width = `${(answeredCount / total) * 100}%`;
+            document.getElementById('tbScore').textContent = score;
+        }
+
+        /* ══════════════════════════════════════════════════
+           RENDER QUESTIONS
+           ══════════════════════════════════════════════════ */
+        function renderQuestions() {
+            const scroll = document.getElementById('questionsScroll');
+            scroll.innerHTML = '';
+            currentDe.questions.forEach(q => {
+                try {
+                    const block = buildQBlock(q);
+                    scroll.appendChild(block);
+                } catch (e) {
+                    console.error('Error rendering question', q.id, e);
+                    const errDiv = document.createElement('div');
+                    errDiv.className = 'q-block';
+                    errDiv.style.borderColor = 'var(--red)';
+                    errDiv.innerHTML = `<div class="q-num" style="color:var(--red)">⚠️ Lỗi câu ${q.id}</div><div class="q-text" style="color:var(--red);font-size:12px">${e.message}</div>`;
+                    scroll.appendChild(errDiv);
+                }
+            });
+        }
+
+        function buildQBlock(q) {
+            const div = document.createElement('div');
+            div.className = 'q-block';
+            div.id = 'qb_' + q.id;
+
+            const num = document.createElement('div');
+            num.className = 'q-num';
+            num.textContent = (q.type === 'open' || q.type === 'fill') ? 'Tự luận — không tính điểm' : `${q.pts} điểm`;
+            div.appendChild(num);
+
+            const qtxt = document.createElement('div');
+            qtxt.className = 'q-text';
+            qtxt.innerHTML = (q.text || '').replace(/\n/g, '<br>');
+            div.appendChild(qtxt);
+
+            if (q.type === 'mc') buildMC(div, q);
+            else if (q.type === 'tf') buildTF(div, q);
+            else if (q.type === 'open') buildOpen(div, q);
+            else if (q.type === 'fill') buildFill(div, q);
+
+            // result row
+            const res = document.createElement('div');
+            res.className = 'q-result';
+            res.id = 'res_' + q.id;
+            div.appendChild(res);
+
+            return div;
+        }
+
+        /* ─── MC ─── */
+        function buildMC(div, q) {
+            const opts = document.createElement('div');
+            opts.className = 'mc-opts';
+            q.opts.forEach((o, i) => {
+                const btn = document.createElement('div');
+                btn.className = 'mc-opt';
+                btn.dataset.idx = i;
+                btn.innerHTML = `<span class="opt-key">${String.fromCharCode(65 + i)}.</span><span>${o}</span>`;
+                btn.onclick = () => answerMC(q, i, btn, opts);
+                opts.appendChild(btn);
+            });
+            div.appendChild(opts);
+        }
+
+        function answerMC(q, chosen, btn, opts) {
+            if (answered[q.id]) return;
+            const correct = chosen === q.ans;
+            const ptsEarned = correct ? q.pts : 0;
+            answered[q.id] = { correct, pts: ptsEarned };
+            answeredCount++;
+            if (correct) score += ptsEarned;
+            updateHud();
+
+            opts.querySelectorAll('.mc-opt').forEach((b, i) => {
+                b.classList.add('locked');
+                if (i === q.ans) b.classList.add('correct');
+                else if (i === chosen && !correct) b.classList.add('wrong');
+            });
+
+            showResult(q.id, correct, ptsEarned);
+            updateBlockStyle(q.id, correct);
+            if (correct) burst(btn);
+            checkAllDone();
+        }
+
+        /* ─── TF ─── */
+        function buildTF(div, q) {
+            const row = document.createElement('div');
+            row.className = 'tf-row';
+            q.items.forEach((item, i) => {
+                const it = document.createElement('div');
+                it.className = 'tf-item';
+                it.innerHTML = `<div class="tf-item-text">${item.text}</div>`;
+                const btns = document.createElement('div');
+                btns.className = 'tf-btns';
+                ['Đ', 'S'].forEach(v => {
+                    const b = document.createElement('button');
+                    b.className = 'tf-btn';
+                    b.textContent = v;
+                    b.dataset.tfid = `${q.id}_${i}`;
+                    b.onclick = () => answerTF(q, i, v, b, btns, row);
+                    btns.appendChild(b);
+                });
+                it.appendChild(btns);
+                row.appendChild(it);
+            });
+            div.appendChild(row);
+            div._tfAnswers = {};
+        }
+
+        function answerTF(q, itemIdx, val, btn, btnsEl, row) {
+            const key = `${q.id}_${itemIdx}`;
+            if (row._done && row._done[key]) return;
+            if (!row._done) row._done = {};
+            row._done[key] = true;
+
+            const correct = val === q.items[itemIdx].ans;
+            btnsEl.querySelectorAll('.tf-btn').forEach(b => {
+                b.classList.add('locked');
+                if (b.textContent === q.items[itemIdx].ans) b.classList.add('correct');
+                else if (b.textContent === val && !correct) b.classList.add('wrong');
+            });
+            if (correct) burst(btn);
+
+            // Check if all items done
+            const allDone = q.items.every((_, i) => row._done && row._done[`${q.id}_${i}`]);
+            if (allDone && !answered[q.id]) {
+                const allCorrect = q.items.every((item, i) => row._done && row._done[`${q.id}_${i}`] !== undefined);
+                answered[q.id] = { correct: allCorrect, pts: allCorrect ? q.pts : 0 };
+                answeredCount++;
+                if (allCorrect) score += q.pts;
+                updateHud();
+                showResult(q.id, allCorrect, allCorrect ? q.pts : 0);
+                updateBlockStyle(q.id, allCorrect);
+                checkAllDone();
+            }
+        }
+
+        /* ─── OPEN ─── */
+        function buildOpen(div, q) {
+            const wrap = document.createElement('div');
+            wrap.className = 'open-ans';
+            wrap.innerHTML = `<div class="ans-label">💡 Xem đáp án gợi ý</div>`;
+            const ansDiv = document.createElement('div');
+            ansDiv.className = 'ans-reveal';
+            ansDiv.innerHTML = `<div class="ans-text">${(q.ans || '').replace(/\n/g, '<br>')}</div>`;
+            const showBtn = document.createElement('button');
+            showBtn.className = 'show-ans-btn';
+            showBtn.textContent = '👁 Hiện đáp án';
+            showBtn.onclick = () => {
+                ansDiv.classList.toggle('show');
+                showBtn.textContent = ansDiv.classList.contains('show') ? '🙈 Ẩn đáp án' : '👁 Hiện đáp án';
+                if (!answered[q.id]) {
+                    answered[q.id] = { correct: true, pts: 0 };
+                    answeredCount++;
+                    updateHud();
+                    checkAllDone();
+                }
+            };
+            wrap.appendChild(showBtn);
+            wrap.appendChild(ansDiv);
+            div.appendChild(wrap);
+        }
+
+        /* ─── FILL ─── */
+        function buildFill(div, q) {
+            // Render sentence with blanks
+            let html = (q.sentence || '').replace(/\n/g, ' ');
+            let bIdx = 0;
+            html = html.replace(/\[([^\]]+)\]/g, (_, inner) => {
+                const id = `blank_${q.id}_${bIdx++}`;
+                return `<span class="blank-slot" id="${id}" data-bidx="${bIdx - 1}">___</span>`;
+            });
+            const sentDiv = document.createElement('div');
+            sentDiv.className = 'fill-sentence';
+            sentDiv.innerHTML = html;
+            div.appendChild(sentDiv);
+
+            const choiceRow = document.createElement('div');
+            choiceRow.className = 'fill-choices';
+            q.choices.forEach(c => {
+                const chip = document.createElement('div');
+                chip.className = 'fill-chip';
+                chip.textContent = c;
+                chip.dataset.val = c;
+                chip.onclick = () => fillAnswer(q, c, chip, div);
+                choiceRow.appendChild(chip);
+            });
+            div._fillProgress = 0;
+            div._fillCorrect = 0;
+            div.appendChild(choiceRow);
+        }
+
+        function fillAnswer(q, val, chip, div) {
+            if (chip.classList.contains('used') || chip.classList.contains('correct-src')) return;
+            const progress = div._fillProgress || 0;
+            if (progress >= q.blanks.length) return;
+            const blank = div.querySelector(`#blank_${q.id}_${progress}`);
+            if (!blank) return;
+            const correctAns = q.blanks[progress].ans;
+            const correct = val === correctAns;
+            blank.textContent = val;
+            blank.classList.add('filled');
+            if (correct) {
+                blank.classList.add('correct');
+                chip.classList.add('correct-src');
+                div._fillProgress = progress + 1;
+                div._fillCorrect = (div._fillCorrect || 0) + 1;
+                burst(blank);
+                if (div._fillProgress >= q.blanks.length && !answered[q.id]) {
+                    answered[q.id] = { correct: true, pts: 0 };
+                    answeredCount++;
+                    // fill không tính điểm
+                    updateHud();
+                    showResult(q.id, true, 0);
+                    updateBlockStyle(q.id, true);
+                    checkAllDone();
+                }
+            } else {
+                blank.classList.add('wrong');
+                chip.classList.add('used');
+                setTimeout(() => {
+                    blank.textContent = '___';
+                    blank.classList.remove('filled', 'wrong');
+                    chip.classList.remove('used');
+                }, 700);
+            }
+        }
+
+        /* ══════════════════════════════════════════════════
+           HELPERS
+           ══════════════════════════════════════════════════ */
+        function showResult(qid, correct, pts) {
+            const el = document.getElementById('res_' + qid);
+            if (!el) return;
+            el.classList.add('show', correct ? 'ok' : 'no');
+            if (!correct) { el.textContent = '❌ Sai — xem đáp án đúng ở trên.'; return; }
+            el.textContent = pts > 0 ? `✅ Đúng! +${pts} điểm` : '✅ Hoàn thành! (câu tự luận không tính điểm)';
+        }
+
+        function updateBlockStyle(qid, correct) {
+            const block = document.getElementById('qb_' + qid);
+            if (!block) return;
+            block.classList.add(correct ? 'answered-correct' : 'answered-wrong');
+        }
+
+        function checkAllDone() {
+            if (answeredCount >= currentDe.questions.length) {
+                setTimeout(showDone, 800);
+            }
+        }
+
+        function showDone() {
+            document.getElementById('gameScreen').style.display = 'none';
+            const dp = document.getElementById('donePanel');
+            dp.style.display = 'flex';
+
+            const total = currentDe.questions.length;
+            const maxPts = currentDe.questions.reduce((s, q) => s + (q.type === 'open' || q.type === 'fill' ? 0 : q.pts), 0);
+            const corr = Object.values(answered).filter(a => a.correct).length;
+            const acc = Math.round(corr / total * 100);
+
+            let trophy, title, stars, msg;
+            const ratio = score / maxPts;
+            if (ratio >= .95) { trophy = '🏆'; title = 'HOÀN HẢO!'; stars = '⭐⭐⭐'; msg = 'Yến Nhi làm đúng hết! Chú Ba tự hào về Yến Nhi lắm! 💛'; }
+            else if (ratio >= .8) { trophy = '🥇'; title = 'Xuất sắc!'; stars = '⭐⭐⭐'; msg = 'Giỏi lắm! Chỉ còn vài chỗ nhỏ cần ôn thêm! 🌟'; }
+            else if (ratio >= .6) { trophy = '🥈'; title = 'Giỏi lắm!'; stars = '⭐⭐'; msg = 'Cố gắng thêm một chút nữa là đạt điểm cao nhé! 📚'; }
+            else { trophy = '📖'; title = 'Ôn bài thêm nhé!'; stars = '⭐'; msg = 'Hãy đọc lại bài rồi thử lại Yến Nhi ơi! 💪'; }
+
+            document.getElementById('doneTrophy').textContent = trophy;
+            document.getElementById('doneTitle').textContent = title;
+            document.getElementById('doneScore').textContent = `${score.toFixed(1)} / ${maxPts} điểm`;
+            document.getElementById('doneStars').textContent = stars;
+            document.getElementById('doneMsg').textContent = msg;
+            document.getElementById('doneStats').innerHTML = `
+    <div class="ds"><div class="de">✅</div><div class="dl">Câu đúng</div><div class="dv">${corr}/${total}</div></div>
+    <div class="ds"><div class="de">🎯</div><div class="dl">Chính xác</div><div class="dv">${acc}%</div></div>
+    <div class="ds"><div class="de">💎</div><div class="dl">Tổng điểm</div><div class="dv">${score.toFixed(1)}</div></div>`;
+        }
+
+        function burst(el) {
+            if (!el) return;
+            const r = el.getBoundingClientRect ? el.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+            ['⭐', '✨', '🌟'].forEach((em, i) => {
+                const d = document.createElement('div');
+                d.className = 'burst';
+                d.style.left = (r.left + r.width / 2 + (i - 1) * 24) + 'px';
+                d.style.top = (r.top + r.height / 2) + 'px';
+                d.style.animationDelay = (i * .07) + 's';
+                d.textContent = em;
+                document.body.appendChild(d);
+                setTimeout(() => d.remove(), 900);
+            });
+        }
+
+        /* INIT */
+        buildHome();
+    </script>
+</body>
+
+</html>
